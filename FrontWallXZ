@@ -1,0 +1,127 @@
+local tArgs = { ... }
+if #tArgs ~= 2 then
+	print( "Usage: wall <y> <z>" )
+	return
+end
+
+os.loadAPI("/sm")
+
+
+function checkMat()
+	if(turtle.getItemCount(tab[1]))==0 then
+		table.remove(tab,1)
+		for i=1,table.maxn(tab) do
+			if turtle.getItemCount(tab[1])>0 then
+				return tab
+			else 
+				table.remove(tab,1)
+			end
+		end 
+		return 
+	else 
+		if(turtle.getItemCount(tab[1]))==1 then
+			table.remove(tab,1)
+		end
+		return 
+	end
+end
+
+function setMats(slot)
+	if turtle.getItemCount(slot)==0 then
+		exit()
+	end
+	for i=1,16 do
+		turtle.select(i)
+		if turtle.compareTo(slot) then
+			table.insert(tab,i)
+			print("lo slot ",i," contiene il materiale scelto.")
+		end
+	end
+	turtle.select(slot)
+end
+
+function placeDown()
+  checkMat()
+  turtle.select(tab[1])
+  if turtle.compareDown()==false then
+    if turtle.getItemCount(tab[1])==0 then
+      outOfResource(tab[1])
+    end
+    digDown()
+    turtle.placeDown()
+  end
+end
+
+function place()
+  checkMat()
+  checkFuel()
+  turtle.select(tab[1])
+  if turtle.detect() then
+    return false
+  else 
+    if turtle.getItemCount(tab[1])==0 then
+      outOfResource(tab[1])
+    end
+    turtle.place()
+    return true
+  end
+end
+
+function placeColumn(l,upward) 
+	if l>1 then
+		for j=1,l-1 do
+			place()
+			if upward==1 then
+				sm.up()
+			else
+				sm.down()
+			end
+		end
+	end
+	place()
+end
+
+local function outOfResource()
+	print("Ran out of a resource. Block: ",block , ".")
+	print("Refill, then say something to proceed.")
+	read()
+end
+
+tab={}
+local y,z,i,j
+local slot = 1
+y=tonumber( tArgs[1] )
+z=tonumber( tArgs[2] )
+if z<0 then 
+	odd = false
+	z = z*-1
+else
+	odd = true
+end
+if y<0 then
+	y = y*-1
+	right = false
+else
+	right = true
+end
+	
+turtle.select(slot)
+mat1=setMats(slot,mat1)
+for i=1, y do
+	if odd== true then
+		placeColumn(z,1) 
+		odd = false
+	else
+		placeColumn(z,0) 
+		odd = true
+	end
+	if right then
+		turtle.turnRight()
+		sm.forward()
+		turtle.turnLeft()
+	else	
+		turtle.turnLeft()
+		sm.forward()
+		turtle.turnRight()
+	end
+end

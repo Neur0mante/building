@@ -12,29 +12,31 @@ local branch = "master"
 local files = {
 	{
 		name = "sm",
+		info = "Solid movement API",
 		url = "https://github.com/Neuromantex/building/raw/"..branch.."/solidMovement"
 	},	
 	{
-		name = "build",
-		info = "Main building program.",
-		url = "https://github.com/Neuromantex/building/raw/"..branch.."/lama-conf",
-		ask = true,
-		default = true
+		name = "dig",
+		info = "dig <x> <y> <z>",
+		url = "https://github.com/Neuromantex/building/raw/"..branch.."/digXYZ",
+		
+		name = "floor",
+		info = "floor <x> <y>",
+		url = "https://github.com/Neuromantex/building/raw/"..branch.."/floorXY",
+		
+		name = "wall",
+		info = "wall <y> <z>.",
+		url = "https://github.com/Neuromantex/building/raw/"..branch.."/wallYZ",
+		
+		name = "cleanroof",
+		info = "cleanroof <x> <y>.",
+		url = "https://github.com/Neuromantex/building/raw/"..branch.."/cleanroofXY",
+		
+		name = "gentlewall",
+		info = "gentlewall <x> <z>.",
+		url = "https://github.com/Neuromantex/building/raw/"..branch.."/gentleWallXZ",
 	},
-	{
-		name = "lama-example",
-		info = "This is an small example application, demonstrating how to write a resumable program using the API.",
-		url = "https://github.com/fnuecke/lama/raw/"..branch.."/lama-example",
-		ask = true,
-		default = false
-	},
-	{
-		name = "lama-src",
-		info = "This is the full, non-minified version of the API. You only need this if you're interested in the implementation details.",
-		url = "https://github.com/fnuecke/lama/raw/"..branch.."/lama",
-		ask = true,
-		default = false
-	}
+
 }
 
 -- Utility function to grab user input.
