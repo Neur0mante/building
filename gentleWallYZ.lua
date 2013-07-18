@@ -3,6 +3,9 @@ if #tArgs ~= 2 then
 	print( "Usage: wall <y> <z>" )
 	return
 end
+
+os.loadAPI("/sm")
+
 function checkMat()
 	if(turtle.getItemCount(tab[1]))==0 then
 		table.remove(tab,1)
@@ -22,27 +25,6 @@ function checkMat()
 	end
 end
 
-function up(l)
-  l=l or 1
-  for i=1,l do
-    local tries = 0
-    while turtle.up() ~= true do
-      turtle.digUp()
-      turtle.attackUp()
-      sleep(0.2)
-      tries = tries + 1
-      if tries>500 then
-        print("Error: can't move up.")
-        return false
-      end
-    end
-  end
-  return true
-end
-
-
-
-
 function setMats(slot)
 	if turtle.getItemCount(slot)==0 then
 		exit()
@@ -55,72 +37,6 @@ function setMats(slot)
 		end
 	end
 	turtle.select(slot)
-end
-
-function dig()
-  local tries = 0
-  while turtle.detect() do
-    turtle.dig()
-    sleep(0.4)
-    tries = tries + 1
-    if tries>500 then
-      print("Error: dug down for too long.")
-      return false
-    end
-  end
-  return true
-end	
-
-function forward(l)
-  l=l or 1
-  for i=1,l do
-	local tries = 0
-	while turtle.forward() ~= true do
-		turtle.dig()
-		turtle.attack()
-		sleep(0.2)
-		tries = tries + 1
-		if tries>500 then
-			print("Error: can't move forward.")
-			return false
-		end
-	end
-  end
-  return true
-end
-function checkFuel()
-	fuel = 100
-	pcall(function() fuel =turtle.getFuelLevel() end)
-	if fuel == "unlimited" then
-		fuel = 100
-	end
-	print(fuel)
-	if fuel<80  then
-		turtle.select(16)
-		turtle.refuel(1)
-	end
-end
-
-function turn(right)
-	if right then
-		turtle.turnRight()
-	else
-		turtle.turnLeft()
-	end	
-end
-
-function digDown()
-  local tries = 0
-  while turtle.detectDown() do
-    turtle.digDown()
-    sleep(0.4)
-    tries = tries + 1
-    if tries>500 then
-      print("Error: dug down for too long.")
-      return false
-    end
-  end
-  return true
 end
 
 function place()
@@ -137,12 +53,11 @@ function place()
     return true
   end
 end
-
-function turnAround()
-  turtle.turnRight()
-  turtle.turnRight()
+local function outOfResource()
+	print("Ran out of a resource. Block: ",block , ".")
+	print("Refill, then say something to proceed.")
+	read()
 end
-
 function placeColumn(l) 
 	if l>1 then
 		for j=1,l-1 do
@@ -189,11 +104,7 @@ function placeColumn(l)
 	place()
 end
 
-local function outOfResource()
-	print("Ran out of a resource. Block: ",block , ".")
-	print("Refill, then say something to proceed.")
-	read()
-end
+
 
 tab={}
 local y,z,i,j

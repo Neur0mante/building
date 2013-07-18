@@ -31,6 +31,7 @@ function up(l)
 end
 
 function down(l)
+
   checkFuel()
   l=l or 1
   for i=1,l do
@@ -100,10 +101,14 @@ function turnAround()
   turtle.turnRight()
   turtle.turnRight()
 end
-
 function digRow(l) 
 	for j=1,l do
 		forward()
 	end
 end
 
+local function outOfResource()
+	print("Ran out of a resource. Block: ",block , ".")
+	print("Refill, then say something to proceed.")
+	read()
+end

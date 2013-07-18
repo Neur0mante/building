@@ -12,12 +12,12 @@ local branch = "master"
 local files = {
 	{
 		name = "sm",
-		url = "https://github.com/fnuecke/lama/raw/"..branch.."/lama-min"
-	},
+		url = "https://github.com/Neuromantex/building/raw/"..branch.."/solidMovement"
+	},	
 	{
-		name = "lama-conf",
-		info = "This is a utility application for managing the API's internal state from the shell.",
-		url = "https://github.com/fnuecke/lama/raw/"..branch.."/lama-conf",
+		name = "build",
+		info = "Main building program.",
+		url = "https://github.com/Neuromantex/building/raw/"..branch.."/lama-conf",
 		ask = true,
 		default = true
 	},

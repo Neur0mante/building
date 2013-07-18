@@ -4,9 +4,9 @@ if #tArgs ~= 2 then
         return
 end
 
-os.loadAPI("happy")
+os.loadAPI("/sm")
 
-function checkMat(tab)
+function checkMat()
 	if(turtle.getItemCount(tab[1]))==0 then
 		table.remove(tab,1)
 		for i=1,table.maxn(tab) do
@@ -21,11 +21,11 @@ function checkMat(tab)
 		if(turtle.getItemCount(tab[1]))==1 then
 			table.remove(tab,1)
 		end
-		return tab
+		return
 	end
 end
 
-function setMats(slot,tab)
+function setMats(slot)
 	if turtle.getItemCount(slot)==0 then
                 exit()
         end
@@ -37,47 +37,11 @@ function setMats(slot,tab)
 		end
 	end
 	turtle.select(1)
-	return tab
+	return
 end
 
-	
-
-function forward(l)
-  happy.checkFuel()
-  l=l or 1
-  for i=1,l do
-	local tries = 0
-	while turtle.forward() ~= true do
-		turtle.dig()
-		turtle.attack()
-		sleep(0.2)
-		tries = tries + 1
-		if tries>500 then
-			print("Error: can't move forward.")
-			return false
-		end
-	end
-  end
-  return true
-end
-
-function digDown()
-  local tries = 0
-  while turtle.detectDown() do
-    turtle.digDown()
-    sleep(0.4)
-    tries = tries + 1
-    if tries>500 then
-      print("Error: dug down for too long.")
-      return false
-    end
-  end
-  return true
-end
-
-function placeDown(tab)
-  tab = checkMat(tab)
-
+function placeDown()
+  checkMat()
   turtle.select(tab[1])
   if turtle.compareDown()==false then
     if turtle.getItemCount(tab[1])==0 then
@@ -85,17 +49,15 @@ function placeDown(tab)
     end
     digDown()
     turtle.placeDown()
-	return tab
   end
-  return tab
 end
 
-function placeRow(tab,l) 
+function placeRow(l) 
 	for j=2,l do
-		tab = placeDown(tab)
-		forward()
+		 = placeDown()
+		sm.forward()
 	end
-	return tab
+	return
 end
 
 local function outOfResource()
@@ -104,26 +66,26 @@ local function outOfResource()
 	read()
 end
 
-mat1={}
+tab={}
 local x,y,i,j
 local slot = 1
 local odd = true
 x=tonumber( tArgs[1] )
 y=tonumber( tArgs[2] )
 turtle.select(slot)
-mat1=setMats(slot,mat1)
+setMats(slot)
 for i=1, x do
 	if odd == true then
-		tab = placeRow(mat1,y) 
+		placeRow(y) 
 		turtle.turnRight()
-  		tab= placeDown(tab)
- 		forward()
+  		placeDown()
+ 		sm.forward()
 		turtle.turnRight()
 		odd  = false
 	else
-		tab = placeRow(mat1,y)
+		placeRow(y)
 		turtle.turnLeft()
-  		tab=placeDown(tab)
+  		placeDown()
   forward()
 		turtle.turnLeft()
 		odd = true
