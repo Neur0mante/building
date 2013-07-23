@@ -86,7 +86,7 @@ for i=1, x do
 		placeRow(y)
 		turtle.turnLeft()
   		placeDown()
-  forward()
+  		sm.forward()
 		turtle.turnLeft()
 		odd = true
 	end
