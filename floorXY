@@ -47,7 +47,7 @@ function placeDown()
     if turtle.getItemCount(tab[1])==0 then
       outOfResource(tab[1])
     end
-    digDown()
+    sm.digDown()
     turtle.placeDown()
   end
 end
