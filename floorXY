@@ -54,7 +54,7 @@ end
 
 function placeRow(l) 
 	for j=2,l do
-		 = placeDown()
+		placeDown()
 		sm.forward()
 	end
 	return
