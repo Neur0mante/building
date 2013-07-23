@@ -82,6 +82,19 @@ function digUp()
   return true
 end
 
+function digDown()
+  local tries = 0
+  while turtle.detectDown() do
+    turtle.digDown()
+    sleep(0.4)
+    tries = tries + 1
+    if tries>500 then
+      print("Error: dug down for too long.")
+      return false
+    end
+  end
+  return true
+end
 function digForward()
   local tries = 0
   while turtle.detect() do
