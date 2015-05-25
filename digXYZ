@@ -8,6 +8,7 @@ os.loadAPI("/sm")
 
 local x,y,z,i,j,k
 local odd
+local relPos
 
 x=tonumber( tArgs[1] )
 y=tonumber( tArgs[2] )
@@ -27,14 +28,25 @@ for i=1, x do
 	end
 	sm.digRow(y+k-1)
 	for j=1,z-1 do
-		sm.digUp()
-		sm.up()
-		sm.turnAround()
-		sm.digRow(y-1)
+		if odd == true then
+			sm.digUp()
+			sm.up()
+			sm.turnAround()
+			sm.digRow(y-1)
+			if oddity == false then
+				odd = false
+			end
+		else
+		sm.digDown()
+			sm.down()
+			sm.turnAround()
+			sm.digRow(y-1)
+			if oddity == false then
+				odd = true
+			end
+			
 	end
-	for j=1,z-1 do
-		sm.down()	
-	end
+	
 	if oddity == false then
 		turtle.turnLeft()
 		sm.forward()
