@@ -44,7 +44,7 @@ for i=1, x do
 			if oddity == false then
 				odd = true
 			end
-			
+		end	
 	end
 	
 	if oddity == false then
